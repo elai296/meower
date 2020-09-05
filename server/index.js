@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const monk = require('monk');
-const Filter = require('bad-words');
+const monk = require('monk'); //database, not the mongoose one
+const Filter = require('bad-words'); //filter the bad words
 const rateLimit = require('express-rate-limit');
 
 const app = express();
 
-const db = monk(process.env.MONGO_URI || 'localhost/meower');
+const db = monk(process.env.MONGO_URI || 'localhost/meower'); //connect to database
 const mews = db.get('mews');
 const filter = new Filter();
 
@@ -64,7 +64,7 @@ app.get('/v2/mews', (req, res, next) => {
     }).catch(next);
 });
 
-function isValidMew(mew) {
+function isValidMew(mew) { //validate the input
   return mew.name && mew.name.toString().trim() !== '' && mew.name.toString().trim().length <= 50 &&
     mew.content && mew.content.toString().trim() !== '' && mew.content.toString().trim().length <= 140;
 }
