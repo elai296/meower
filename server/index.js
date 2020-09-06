@@ -8,7 +8,7 @@ const app = express();
 
 const db = monk(process.env.MONGO_URI || 'localhost/meower'); //connect to database
 const mews = db.get('mews');
-const filter = new Filter();
+const filter = new Filter(); //create the object to use methods from the package
 
 app.enable('trust proxy');
 
@@ -77,9 +77,9 @@ app.use(rateLimit({
 const createMew = (req, res, next) => {
   if (isValidMew(req.body)) {
     const mew = {
-      name: filter.clean(req.body.name.toString().trim()),
-      content: filter.clean(req.body.content.toString().trim()),
-      created: new Date()
+      name: filter.clean(req.body.name.toString().trim()), //filter is the method from package bad-words
+      content: filter.clean(req.body.content.toString().trim()), //filter is the method from package bad-words
+      created: new Date() //show the date 
     };
 
     mews
