@@ -82,6 +82,8 @@ const createMew = (req, res, next) => {
       created: new Date() //show the date 
     };
 
+    //innerText returns the visible part of the element
+    //contentText returns the full element
     mews
       .insert(mew)
       .then(createdMew => {
